@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>{{detail.name}} | Page Not Found</title>
+    <link rel="icon" href="{{ url_for('static', filename='users/images/'+ detail.favicon) }}" type="image/png" sizes="16x16">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/main.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/color.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/responsive.css') }}">
+
+</head>
+<body>
+<div class="page-loader" id="page-loader">
+
+  <div class="loader"><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span></div>
+
+</div><!-- page loader -->
+<div class="theme-layout">
+	<div class="error-page">
+		<div class="logo top-left"><img src="{{ url_for('static', filename='users/images/'+ detail.logo) }}" alt=""><span>{{detail.name}}</span></div>
+		<div id="container-inside">
+		  <div id="circle-small"></div>
+		  <div id="circle-medium"></div>
+		  <div id="circle-large"></div>
+		  <div id="circle-xlarge"></div>
+		  <div id="circle-xxlarge"></div>
+	  	</div>
+		<div class="error-data">
+			<figure><img src="{{ url_for('static', filename='users/images/resources/error.png') }}" alt=""></figure>
+			<h1>Page Not Found</h1>
+			<a class="main-btn" href="{{ request.referrer }}" title="">Go Back</a>
+		</div>
+	</div>
+</div>
+
+	<script src="{{ url_for('static', filename='users/js/main.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='users/js/script.js') }}"></script>
+
+
+</body>
+</html>

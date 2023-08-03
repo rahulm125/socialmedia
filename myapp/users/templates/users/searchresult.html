@@ -1,0 +1,402 @@
+{% extends "userlayout.html" %}
+
+{% block content %}
+<section>
+    <div class="tab-pane fade active show" id="members">
+
+                                    <div class="main-wraper">
+                                        <h4 class="main-title">Search Results for {{search}}</h4>
+                                        {% for mess in get_flashed_messages()  %}
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" class="fade close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{mess}}
+        </div>
+      {% endfor %}
+<!--                                        <form>-->
+
+                                        <div class="row remove-ext20 col-xs-6 merged-10">
+                                            {% for res in result %}
+                                            <div class="col-lg-3 col-md-3 col-sm-6">
+
+<!--                                                <form method="post">-->
+
+                                                <div class="members">
+
+
+                                                    {% if profil(res) %}
+                                                    <figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ profil(res))}}"></figure>
+                                                    {% else %}
+                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/user.jpg') }}"></figure>
+                                                    {% endif %}
+                                                    <span><a href="/userprofile/{{res.username}}" title="">{{res.firstname}} {{res.lastname}}</a></span>
+                                                    <ins></ins>
+
+                                                    {% if res.id == current_user.id %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="{{ url_for('users.profile') }}"><i class="icofont-user-alt-7"></i> Profile</a>
+                                                    {% else %}
+
+
+                                                    {% if is_follow(res, follow_lst) %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/unfollow/{{res.id}}/{{user_info.id}}"><i class="icofont-star"></i> Unollow</a>
+                                                    {% else %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/follow/{{res.id}}/{{user_info.id}}"><i class="icofont-star"></i> Follow</a>
+                                                    {% endif %}
+
+                                                    {% if is_frnd(res, frnd_lst) %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/unfriend/{{res.id}}/{{user_info.id}}"><i class="icofont-star"></i> Unfriend</a>
+
+                                                    {% elif is_req(res, pen_lst) %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/cancelreq/{{user_info.id}}/{{res.id}}"><i class="icofont-star"></i> Cancel Request</a>
+
+                                                    {% elif is_pen(res, req_lst) %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/acceptreq/{{res.id}}/{{user_info.id}}"><i class="icofont-star"></i> Accept Request</a>
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/cancelreq/{{res.id}}/{{user_info.id}}"><i class="icofont-star"></i> Delete Request</a>
+
+                                                    {% else %}
+                                                    <ins></ins>
+                                                    <a data-ripple="" title="" href="/addfriend/{{res.id}}"><i class="icofont-star"></i> Add Friend</a>
+
+                                                    {% endif %}
+
+
+                                                   {% endif %}
+
+
+                                                </div>
+
+<!--                                                </form>-->
+
+                                            </div>
+                                            {% endfor %}
+
+
+
+                                        </div>
+
+<!--                                             </form>-->
+                                    </div>
+                                </div>
+</section>
+<!--	<section>-->
+<!--		<div class="top-area bluesh high-opacity">-->
+<!--&lt;!&ndash;			<div class="bg-image" style="background-image: url({{ url_for('static', filename='users/images/resources/top-bg.jpg') }})"></div>&ndash;&gt;-->
+<!--			<div class="container">-->
+<!--				<div class="row">-->
+<!--					<div class="col-lg-12">-->
+<!--						<div class="post-subject">-->
+<!--							<div class="university-tag">-->
+<!--								<div class="Search-result">-->
+<!--									<h4>Search Result for <strong>"Computer"</strong></h4>-->
+<!--								</div>-->
+<!--							</div>-->
+
+<!--							<ul class="nav nav-tabs post-detail-btn">-->
+<!--&lt;!&ndash;                            	<li class="nav-item"><a class="active" href="#allposts" data-toggle="tab">All Posts</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li class="nav-item"><a class="" href="#depart" data-toggle="tab">Departments</a></li>&ndash;&gt;-->
+<!--                                <li class="nav-item"><a class="active" href="#members" data-toggle="tab">Users</a></li>-->
+<!--&lt;!&ndash;								<li class="nav-item"><a class="" href="#photos" data-toggle="tab">Photos</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;								<li class="nav-item"><a class="" href="#videos" data-toggle="tab">Videos</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;								<li class="nav-item"><a class="" href="#groups" data-toggle="tab">Groups</a></li>&ndash;&gt;-->
+<!--                            </ul>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</section>-->
+<!--<section>-->
+<!--    <div class="gap">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-12">-->
+<!--                    <div id="page-contents" class="row merged20">-->
+<!--                        <div class="col-lg-8">-->
+<!--                            <div class="tab-content">-->
+<!--&lt;!&ndash;                                <div class="tab-pane fade active show" id="allposts" >&ndash;&gt;-->
+
+<!--                               <div class="tab-pane fade active show" id="members">-->
+
+<!--                                    <div class="main-wraper">-->
+<!--                                        <h4 class="main-title">Friends (254)</h4>-->
+<!--                                        <div class="row remove-ext20 col-xs-6 merged-10">-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-1.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title=""></a></span>-->
+<!--                                                    <ins>Department of Sociology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-2.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">Muhammad A.</a></span>-->
+<!--                                                    <ins>Department of zovology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-3.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">Sara Jean</a></span>-->
+<!--                                                    <ins>Department of Sociology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-4.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">William Jhon</a></span>-->
+<!--                                                    <ins>Department of Biologye</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-1.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">Amy Watson</a></span>-->
+<!--                                                    <ins>Department of Sociology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-2.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">Muhammad A.</a></span>-->
+<!--                                                    <ins>Department of zovology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-3.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">Sara Jean</a></span>-->
+<!--                                                    <ins>Department of Sociology</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-lg-3 col-md-3 col-sm-6">-->
+<!--                                                <div class="members">-->
+<!--                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/speak-4.jpg') }}"></figure>-->
+<!--                                                    <span><a href="#" title="">William Jhon</a></span>-->
+<!--                                                    <ins>Department of Biologye</ins>-->
+<!--                                                    <a data-ripple="" title="" href="#"><i class="icofont-star"></i> Follow</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--&lt;!&ndash;                                <div class="tab-pane fade" id="groups">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="main-wraper">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <h4 class="main-title">Groups</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="row col-xs-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img alt="" src="{{ url_for('static', filename='users/images/resources/group1.jpg') }}"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="#">Sports Punch</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>125M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group2.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Asian Girls</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>12k Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group3.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Graphic Design</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>125M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group4.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Family Lovers</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>1M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group5.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">School Mates</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>22M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group6.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Panama Beach</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>5M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group7.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Online Teching</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>52k Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group8.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Child Cares</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>1M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group9.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Fun Art</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>35k Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group10.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Kids Players</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>10M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="col-lg-3 col-md-4 col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="group-box">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <figure><img src="{{ url_for('static', filename='users/images/resources/group11.jpg') }}" alt=""></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a href="#" title="">Goldi Friends</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>14M Members</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <button>join group</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                            &lt;!&ndash; <div class="main-wraper">-->
+<!--                                <h4 class="main-title">Related Searches</h4>-->
+<!--                                <ul class="related-searches">-->
+<!--                                    <li><a title="" href="#">jack carter jr.</a></li>-->
+<!--                                    <li><a title="" href="#">jack carter Pool</a></li>-->
+<!--                                    <li><a title="" href="#">jack carter fdny </a></li>-->
+<!--                                    <li><a title="" href="#">jack carter chevrolet cadillac </a></li>-->
+<!--                                    <li><a title="" href="#">jack jack </a></li>-->
+<!--                                </ul>-->
+<!--                            </div> &ndash;&gt;-->
+<!--                        </div>-->
+<!--&lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <aside class="sidebar static right">&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash; <div class="widget">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <h4 class="widget-title">Post Analytics</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <ul class="widget-analytics">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>Reads <span>56</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>Recommendations <span>3</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>Shares <span>22</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>References <span>17</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash; <div class="widget">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <h4 class="widget-title">Ask Research Question?</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="ask-question">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <i class="icofont-question-circle"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <h6>Ask questions in Q&A to get help from experts in your field.</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <a class="ask-qst" href="#" title="">Ask a question</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash; <div class="widget">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <h4 class="widget-title">Explor Events <a class="see-all" href="#" title="">See All</a></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="rec-events bg-purple">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <i class="icofont-gift"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <h6><a title="" href="">BZ University good night event in columbia</a></h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <img alt="" src="images/clock.png">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="rec-events bg-blue">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <i class="icofont-microphone"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <h6><a title="" href="">The 3rd International Conference 2020</a></h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <img alt="" src="images/clock.png">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash; <div class="widget stick-widget">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <h4 class="widget-title">Who's follownig</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <ul class="followers" >&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <figure><img alt="" src="images/resources/friend-avatar.jpg"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="friend-meta">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="time-line.html">Kelly Bill</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>Dept colleague</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <a class="underline" title="" href="#">Follow</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <figure><img alt="" src="images/resources/friend-avatar2.jpg"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="friend-meta">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="time-line.html">Issabel</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>Dept colleague</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <a class="underline" title="" href="#">Follow</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <figure><img alt="" src="images/resources/friend-avatar3.jpg"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="friend-meta">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="time-line.html">Andrew</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>Dept colleague</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <a class="underline" title="" href="#">Follow</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <figure><img alt="" src="images/resources/friend-avatar4.jpg"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="friend-meta">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="time-line.html">Sophia</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>Dept colleague</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <a class="underline" title="" href="#">Follow</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <figure><img alt="" src="images/resources/friend-avatar5.jpg"></figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="friend-meta">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a title="" href="time-line.html">Allen</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <span>Dept colleague</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <a class="underline" title="" href="#">Follow</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            </aside>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+{% endblock %}

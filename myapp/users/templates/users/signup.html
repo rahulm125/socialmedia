@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 {% for detail in details %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>{{detail.name}} | SignUp</title>
+    <link rel="icon" href="{{ url_for('static', filename='uploads/images/'+ detail.favicon) }}" type="image/png" sizes="16x16">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/main.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/color.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/responsive.css') }}">
+
+</head>
+<body>
+<div class="page-loader" id="page-loader">
+
+  <div class="loader"><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span></div>
+
+</div><!-- page loader -->
+<div class="theme-layout">
+
+	<section>
+        	<div class="gap no-gap signin whitish medium-opacity register">
+                <div class="bg-image" style="background-image:url({{ url_for('static', filename='users/images/resources/theme-bg.jpg') }} )"></div>
+                <div class="container">
+                	<div class="row">
+                        <div class="col-lg-7">
+                            <div class="big-ad">
+                                <figure><img src="{{ url_for('static', filename='users/images/logo2.png') }}" alt=""></figure>
+
+								<h1>{{detail.swebheading}}</h1>
+
+                                <p>
+									{{detail.sdesc}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+							<div class="ver-center">
+								<div class="reg-from">
+									<span><i class="icofont-lock"></i> Create an Account</span>
+									<p>Its quick and Easy</p>
+									<form class="c-form" method="post">
+										{{form.hidden_tag()}}
+										{% for mess in get_flashed_messages()  %}
+										  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close" class="fade close">
+											  <span aria-hidden="true">&times;</span>
+											</button>
+											{{mess}}
+											</div>
+										  {% endfor %}
+										{% for field, errors in form.errors.items() %}
+											<div class="alert alert-warning alert-dismissible fade show" role="alert">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close" class="fade close">
+												  <span aria-hidden="true">&times;</span>
+												</button>
+												{{ ', '.join(errors) }}
+											</div>
+										{% endfor %}
+										<div class="row merged-10">
+											<div class="col-lg-6 col-md-6 col-sm-6">
+<!--												<input class="mb-2" type="text" placeholder="First-Name">-->
+												{{form.firstname(class="mb-2", placeholder="First Name")}}
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6">
+<!--												<input class="mb-2" type="text" placeholder="Last-Name">-->
+												{{form.lastname(class="mb-2", placeholder="Last Name")}}
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+<!--												<input class="mb-2" type="text" placeholder="Mobile or Email ID">-->
+												{{form.email(class="mb-2", placeholder="Email ID")}}
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+<!--												<input class="mb-2" type="text" placeholder="Mobile or Email ID">-->
+												{{form.username(class="mb-2", placeholder="Username")}}
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6">
+<!--												<input class="mb-2" type="password" placeholder="Password">-->
+												{{form.password(class="mb-2", placeholder="Password")}}
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6">
+<!--												<input class="mb-2" type="password" placeholder="Retype Password">-->
+												{{form.pass_confirm(class="mb-2", placeholder="Confirm Password")}}
+											</div>
+											<div class="col-lg-4 col-md-6 col-sm-6">
+												<label>Date of Birth</label>
+<!--												<input class="mb-2" type="text" placeholder="Date">-->
+												{{form.date(class="mb-2", placeholder="Date")}}
+											</div>
+											<div class="col-lg-4 col-md-6 col-sm-6">
+												<label>Year</label>
+												<select class="mb-2" name="dyear" id="dyear">
+													{% for row in year %}
+
+													<option value="{{row}}">{{row}}</option>
+<!--													<option>2001</option>-->
+<!--													<option>2002</option>-->
+<!--													<option>2003</option>-->
+<!--													<option>2004</option>-->
+<!--													<option>2005</option>-->
+													{% endfor %}
+												</select>
+											</div>
+											<div class="col-lg-4 col-md-6 col-sm-6">
+												<label>Month</label>
+												<select class="mb-2" name="dmonth" id="dmonth">
+													{% for row in month %}
+
+													<option value="{{row}}">{{row}}</option>
+<!--													<option>February</option>-->
+<!--													<option>March</option>-->
+<!--													<option>April</option>-->
+<!--													<option>May</option>-->
+<!--													<option>June</option>-->
+													{% endfor %}
+
+												</select>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="gender mb-2">
+													<label>Gender</label>
+
+
+													<div class="form-radio">
+
+													{% for subfield in form.gender %}
+													  <div class="radio">
+<!--														<label>-->{{ subfield.label }}
+<!--														  <input type="radio" name="radio" checked="checked"><i class="check-box"></i>Male-->
+															{{ subfield(class="check-box") }}
+<!--														</label>-->
+													  </div>
+
+<!--													  <div class="radio">-->
+<!--														<label>-->
+<!--&lt;!&ndash;														  <input type="radio" name="radio"><i class="check-box"></i>Female&ndash;&gt;-->
+<!--															{{ Female }}-->
+<!--														</label>-->
+<!--													  </div>-->
+<!--														<div class="radio">-->
+<!--														<label>-->
+<!--&lt;!&ndash;														  <input type="radio" name="radio"><i class="check-box"></i>Custom&ndash;&gt;-->
+<!--															{{ Other }}-->
+<!--														</label>-->
+<!--													  </div>-->
+
+													{% endfor %}
+													</div>
+
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+												<div class="checkbox mb-1">
+							<input type="checkbox" id="checkbox" checked disabled>
+							<label for="checkbox"><span>By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy. You may receive Email notifications from us and can opt out at any time.</span></label>
+						</div>
+
+											</div>
+											<div class="col-lg-8 col-md-6 mt-2">
+												<span class="reg-with" style="color:#674B99">Already have an account?<a href="{{ url_for('users.signin') }}"> Sign in!</a></span>
+<!--												<ul class="social-reg">-->
+<!--													<li><a class="facebook" href="#" title="" data-ripple=""><i class="icofont-facebook"></i> Facebook</a></li>-->
+<!--													<li><a class="twitter" href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Twitter</a></li>-->
+<!--												</ul>-->
+											</div>
+											<div class="col-lg-4 col-md-6 mt-2">
+												<button class="main-btn" type="submit">Signup</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+</div>
+
+	<script src="{{ url_for('static', filename='users/js/main.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='users/js/script.js') }}"></script>
+
+{% endfor %}
+</body>
+</html>

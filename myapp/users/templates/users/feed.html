@@ -1,0 +1,554 @@
+{% extends "userlayout.html" %}
+
+{% block content %}
+
+
+<section>
+	<div class="gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="page-contents" class="row merged20">
+						<div class="col-lg-3">
+							<aside class="sidebar static left">
+
+
+								<div class="widget">
+									<h4 class="widget-title">Your profile has a new Experience section</h4>
+									<p>
+										Showcase your professional experience and education to help potential employers and collaborators find and contact you about career opportunities.
+									</p>
+									<a class="main-btn" href="{{ url_for('users.profile') }}" title="" data-ripple="">view profile</a>
+								</div><!-- your profile -->
+								<div class="widget web-links stick-widget">
+									<h4 class="widget-title">Useful Links</h4>
+									<ul>
+										<li><i class="icofont-dotted-right"></i> <a title="" href="{{ url_for('users.profile') }}">Profile</a></li>
+										 <li><i class="icofont-dotted-right"></i> <a title="" href="{{ url_for('users.settings') }}">Settings</a></li>
+										<li><i class="icofont-dotted-right"></i> <a title="" href="{{ url_for('users.live') }}">Live</a></li>
+										<li><i class="icofont-dotted-right"></i> <a title="" href="{{ url_for('users.help') }}">help</a></li>
+										<li><i class="icofont-dotted-right"></i> <a title="" href="#">Privacy Policy</a></li>
+									</ul>
+
+								</div><!-- links -->
+							</aside>
+						</div>
+						<div class="col-lg-6">
+							<ul class="filtr-tabs">
+								<li><a class="active" href="#" title="">Home</a></li>
+<!--								<li><a href="#" title="">Public</a></li>-->
+<!--								<li><a href="#" title="">Organizer</a></li>-->
+							</ul><!-- tab buttons -->
+							<div class="main-wraper">
+								<span class="new-title">Create New Post</span>
+								<div class="new-post">
+									<form method="post">
+										<i class="icofont-pen-alt-1"></i>
+										<input type="text" placeholder="Create New Post">
+									</form>
+									<ul class="upload-media">
+										<li>
+											<a href="#" title="">
+												<i><img src="{{ url_for('static', filename='users/images/image.png') }}" alt=""></i>
+												<span>Photo/Video</span>
+											</a>
+										</li>
+
+									</ul>
+								</div>
+							</div><!-- create new post -->
+
+
+							{% if fsuggestions != None %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<i class="icofont-learn"></i>
+										</figure>
+										<div class="friend-name">
+											<ins><a title="" href="time-line.html">Suggested</a></ins>
+											<span><i class="icofont-runner-alt-1"></i> Follow similar People</span>
+										</div>
+										<ul class="suggested-caro">
+											{% for sug in fsuggestions %}
+											<li>
+												{% if profil(sug) %}
+												<figure><img src="{{ url_for('static', filename='uploads/images/'+ profil(sug)) }}" alt=""></figure>
+												{% else %}
+												<figure><img src="{{ url_for('static', filename='users/images/resources/speak-1.jpg') }}" alt=""></figure>
+												{% endif %}
+												<span>{{ sug.firstname }} {{ sug.lastname }}</span>
+<!--												<ins></ins>-->
+												{% if is_follow(sug, follow_lst) %}
+												<a href="/unfollow/{{sug.id}}/{{user_info.id}}" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>
+												{% else %}
+												<a href="/follow/{{sug.id}}/{{user_info.id}}" title="" data-ripple=""><i class="icofont-star"></i> Follow</a>
+												{% endif %}
+											</li>
+											{% endfor %}
+
+										</ul>
+									</div>
+								</div>
+							</div><!-- suggested friends -->
+							{% endif %}
+
+
+
+							<div class="main-wraper">
+															<div class="wraper-title">
+																<span><i class="icofont-video-alt"></i> Videos Play List</span>
+															</div>
+															<div class="videos-caro">
+																{% for post in videos %}
+																{% if post.filetype == "video" %}
+																<div class="item-video" data-merge="2">
+																	<iframe height="285" src="{{ url_for('static', filename='uploads/videos/'+ post.filename) }}" allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+																	<div class="posted-user">
+																		<img src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}" alt="">
+																		<span>{{post.name}}</span>
+																	</div>
+																	<div class="vid-info">
+																		<span>{{post.time}}</span>
+																	</div>
+																</div>
+																{% endif %}
+
+																{% else %}
+																<span>No Videos to Show</span>
+																{% endfor %}
+															</div>
+														</div><!-- video playlist carousel -->
+
+
+							{% if viewposts != None %}
+							{% for post in viewposts %}
+							{% if post.filetype == "simple" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+
+											</div>
+											<ins>
+												<a title="verified" href="time-line.html">{{post.name}}</a></ins>
+											<span><i class="icofont-globe"></i> published: {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+											<a href="post-detail.html" class="post-title">{{post.desc}}</a>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">
+													  {% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+<!--													<div class="Emojis">-->
+<!--													  <div class="Emoji Emoji&#45;&#45;like">-->
+<!--														<div class="icon icon&#45;&#45;like"></div>-->
+<!--													  </div>-->
+<!--													  <div class="Emoji Emoji&#45;&#45;love">-->
+<!--														<div class="icon icon&#45;&#45;heart"></div>-->
+<!--													  </div>-->
+<!--													  <div class="Emoji Emoji&#45;&#45;haha">-->
+<!--														<div class="icon icon&#45;&#45;haha"></div>-->
+<!--													  </div>-->
+<!--													  <div class="Emoji Emoji&#45;&#45;wow">-->
+<!--														<div class="icon icon&#45;&#45;wow"></div>-->
+<!--													  </div>-->
+<!--													  <div class="Emoji Emoji&#45;&#45;sad">-->
+<!--														<div class="icon icon&#45;&#45;sad"></div>-->
+<!--													  </div>-->
+<!--													  <div class="Emoji Emoji&#45;&#45;angry">-->
+<!--														<div class="icon icon&#45;&#45;angry"></div>-->
+<!--													  </div>-->
+<!--													</div>-->
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+
+															{% endif %}
+
+															{% endif %}
+
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- share post without image -->
+							{% endif %}
+							{% if post.filetype == "image" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+<!--												-->
+											</div>
+											<ins><a title="" href="time-line.html">{{post.name}}</a> Created Post on</ins>
+											<span><i class="icofont-globe"></i> {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+											<figure>
+												<a data-toggle="modal" data-target="#img-comt" href="{{ url_for('static', filename='users/images/resources/album1.jpg') }}">
+													<img src="{{ url_for('static', filename='uploads/images/'+ post.filename) }}" alt="">
+												</a>
+											</figure>
+<!--											<a href="post-detail.html" class="post-title">Supervision as a Personnel Development Device</a>-->
+											<p>
+<!--												Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero.-->
+												{{ post.desc }}
+											</p>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">{% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endif %}
+															{% endif %}
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+
+							{% if post.filetype == "video" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+
+											</div>
+											<ins><a title="" href="time-line.html">{{post.name}}</a> Shared Video</ins>
+											<span><i class="icofont-globe"></i> published: {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+<!--											<em><a href="https://www.youtube.com/embed/zdow47FQRfQ" title="" target="_blank">https://www.youtube.com/embed/zdow47FQRfQ</a>-->
+<!--											</em>-->
+											<iframe height="285" src="{{ url_for('static', filename='uploads/videos/'+ post.filename) }}" allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+											<p>
+											{{post.desc}}
+											</p>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">{% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+
+															{% endif %}
+															{% endif %}
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- share video -->
+							{% endif %}
+
+							{% endfor %}
+							{% endif %}
+
+
+
+<!--							<div class="loadmore">-->
+<!--								<div class="sp sp-bars"></div>-->
+<!--								<a href="#" title="" data-ripple="">Load More..</a>-->
+<!--							</div>&lt;!&ndash; loadmore buttons &ndash;&gt;-->
+						</div>
+						<div class="col-lg-3">
+							<aside class="sidebar static right">
+
+								<div class="widget">
+									<h4 class="widget-title">Need any Help?</h4>
+									<div class="ask-question">
+										<i class="icofont-question-circle"></i>
+										<h6>Browse through our help topics.</h6>
+										<a class="ask-qst" href="{{ url_for('users.help') }}" title="">Go to help</a>
+									</div>
+								</div><!-- ask question widget -->
+
+								{% if fsuggestions != None %}
+								<div class="widget stick-widget">
+									<h4 class="widget-title">Who's follownig</h4>
+									<ul class="followers" >
+										{% for sug in fsuggestions %}
+										<li>
+											 {% if profil(sug) %}
+											<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ profil(sug)) }}"></figure>
+											{% else %}
+											<figure><img alt="" src="{{ url_for('static', filename='users/images/resources/friend-avatar.jpg') }}"></figure>
+											{% endif %}
+											<div class="friend-meta">
+												<h4>
+													<a title="" href="userprofile/{{ sug.username }}">{{ sug.firstname }} {{ sug.lastname }}</a>
+													<span></span>
+												</h4>
+												{% if is_follow(sug, follow_lst) %}
+												<a href="/unfollow/{{sug.id}}/{{user_info.id}}" class="underline" title=""> Unfollow</a>
+												{% else %}
+												<a href="/follow/{{sug.id}}/{{user_info.id}}" class="underline" title=""> Follow</a>
+												{% endif %}
+<!--												<a class="underline" title="" href="#">Follow</a>-->
+											</div>
+										</li>
+										{% endfor %}
+
+									</ul>
+								</div><!-- whos following -->
+								{% endif %}
+							</aside>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

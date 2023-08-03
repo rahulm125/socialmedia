@@ -1,0 +1,139 @@
+{% extends "adminlayout.html" %}
+{% set active_page = "websettings" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-content">
+            <h4 class="main-title">Website Settings</h4>
+            <div class="row merged20 md-4">
+                <div class="contain">
+                    <form method="post" enctype="multipart/form-data">
+                        {{form.hidden_tag()}}
+                        <br>
+                        {% for mess in get_flashed_messages()  %}
+                                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" class="fade close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{mess}}
+                                    </div>
+                                  {% endfor %}
+                        <fieldset class="uk-fieldset">
+
+                            <div class="uk-margin"> <br>
+                                {{ form.name.label }}<br> {{ form.name(class="uk-input") }}
+<!--                                <label for="wel">Website Name</label><br>-->
+<!--                                <input id="wel" class="uk-input" type="text" placeholder="Unity streak">-->
+                            </div>
+
+                            <div class="uk-margin">
+<!--                                <label for="btn1"  >Favicon(16px *16px)</label><br>-->
+<!--                                <input class="uk-button" id="btn1" type="file" placeholder="Favicon">-->
+                                {{ form.favicon.label }}<br> {{ form.favicon(class="uk-button") }}
+                            </div>
+                            <div class="uk-margin">
+                                {{ form.logo.label }}<br> {{ form.logo(class="uk-button") }}
+<!--                                <label for="btn2"  >Logo(60px *46px)</label><br>-->
+<!--                                <input class="uk-button" id="btn2" type="file" placeholder="Logo">-->
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="copy">Copyright</label><br>-->
+<!--                                <input id="copy" class="uk-input" type="text" placeholder="Unity streak 2021">-->
+                                {{ form.copyrights.label }}<br> {{ form.copyrights(class="uk-input") }}
+                            </div>
+
+
+
+
+                            <div class="uk-margin">
+<!--                                <label for="slider">Slider One Heading</label><br>-->
+<!--                                <input id="slider" class="uk-input" type="text" placeholder="Welcome to unity streak">-->
+                                {{ form.lsliderone.label }}<br> {{ form.lsliderone(class="uk-input") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="one">Slider One Description</label><br>-->
+<!--                                <textarea id="one" class="uk-input" type="text" placeholder="Description"></textarea>-->
+                                {{ form.lonedesc.label }}<br> {{ form.lonedesc(class="uk-textarea") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="btn3">Slider one photo(600px*400px)</label><br>-->
+<!--                                <input id="btn3" class="uk-button" type="file" placeholder="">-->
+                                {{ form.lonephoto.label }}<br> {{ form.lonephoto(class="uk-button") }}
+                            </div>
+
+
+
+                            <div class="uk-margin">
+<!--                                <label for="slider-two">Sliding Two Heading</label><br>-->
+<!--                                <input id="slider-two" class="uk-input" type="text" placeholder="Welcome to unity streak 2">-->
+                                {{ form.lslidertwo.label }}<br> {{ form.lslidertwo(class="uk-input") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="two">Slider two Description</label><br>-->
+<!--                                <textarea id="two" class="uk-input" type="text" placeholder="Description two"></textarea>-->
+                                {{ form.ltwodesc.label }}<br> {{ form.ltwodesc(class="uk-textarea") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="btn4">Slider two photo(600px*400px)</label><br>-->
+<!--                                <input id="btn4" class="uk-button" type="file" placeholder="">-->
+                                {{ form.ltwophoto.label }}<br> {{ form.ltwophoto(class="uk-button") }}
+                            </div>
+
+
+
+                            <div class="uk-margin">
+<!--                                <label for="slider-three">Sliding three Heading</label><br>-->
+<!--                                <input id="slider-three" class="uk-input" type="text" placeholder="Welcome to unity streak 2">-->
+                                {{ form.lsliderthree.label }}<br> {{ form.lsliderthree(class="uk-input") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="three">Slider three Description</label><br>-->
+<!--                                <textarea id="three" class="uk-input" type="text" placeholder="Description three"></textarea>-->
+                                {{ form.lthreedesc.label }}<br> {{ form.lthreedesc(class="uk-textarea") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="btn5">Slider three photo(573px*435px)</label><br>-->
+<!--                                <input id="btn5" class="uk-button" type="file" placeholder="">-->
+                                {{ form.lthreephoto.label }}<br> {{ form.lthreephoto(class="uk-button") }}
+                            </div>
+
+
+
+                            <div class="uk-margin">
+<!--                                <label for="signup">Signup page heading</label><br>-->
+<!--                                <input id="signup" class="uk-input" type="text" placeholder="Welcome to unity streak">-->
+                                {{ form.swebheading.label }}<br> {{ form.swebheading(class="uk-input") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="page">Signup page description</label><br>-->
+<!--                                <textarea id="page" class="uk-input" type="text" placeholder="Social Media Application"></textarea>-->
+                                {{ form.sdesc.label }}<br> {{ form.sdesc(class="uk-textarea") }}
+                            </div>
+                            <div class="uk-margin">
+<!--                                <label for="btn6">Admin Login&Signup page photo(500px*667px)</label><br>-->
+<!--                                <input id="btn6" class="uk-button" type="file" placeholder="">-->
+                                {{ form.lphoto.label }} <br>{{ form.lphoto(class="uk-button") }}
+                            </div>
+
+
+                            <div>
+<!--                            <input type="radio" id="on" name="fav_language" value="HTML">-->
+<!--&lt;!&ndash;								<label for="html">On</label><br>&ndash;&gt;-->
+<!-- 								<input type="radio" id="off" name="fav_language" value="CSS">-->
+<!--&lt;!&ndash;								<label for="css">OFF</label><br>&ndash;&gt;-->
+                                {{ form.signup.label }}<br> {{ form.signup() }}
+                            </div>
+                            <div>
+<!--                                <input class="uk-button" type="button" value="Save Details">-->
+                                {{ form.submit(class="uk-button") }}<br><br>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

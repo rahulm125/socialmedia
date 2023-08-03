@@ -1,0 +1,144 @@
+{% extends "userlayout.html" %}
+
+{% block content %}
+
+<section>
+    <div class="gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <nav class="responsive-tab">
+                        <ul class="nav nav-tabs uk-list">
+                            <li class="nav-item"><a class="active" href="#account" data-toggle="tab">Profile
+                                    Information</a></li>
+                            <!--                            <li class="nav-item"><a class="" href="#notification"data-toggle="tab">Profile Picture</a></li>-->
+<!--                            <li class="nav-item"><a class="" href="#privacy" data-toggle="tab">Social Media Links</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item"><a class="" href="#billing" data-toggle="tab">Change Password</a></li>-->
+<!--                            &lt;!&ndash;  <li class="nav-item"><a class="" href="#api" data-toggle="tab">API Clients</a></li> &ndash;&gt;-->
+<!--                            <li class="nav-item"><a class="" href="#close" data-toggle="tab">Close Account</a>-->
+<!--                            </li>-->
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-9">
+                    <div class="main-wraper">
+                        <div class="tab-content" id="components-nav">
+                            <!-- settings -->
+                            <div class="tab-pane active fade show" id="account">
+                                <div class="uk-width">
+                                    <div class="setting-card">
+                                        <!-- <h2>Account Settings</h2>
+                                    <p class="mb-4">This is your public presence on Socimo. You need a account to upload your paid courses, comment on courses, purchased by users, or earning.
+                                    </p> -->
+                                        <h2>Basic Profile</h2>
+                                        <p>Add information about yourself</p>
+                                        <form class="basic" method="post" enctype="multipart/form-data">
+                                            {{form.hidden_tag()}}
+                                            {% for mess in get_flashed_messages() %}
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close" class="fade close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                {{mess}}
+                                            </div>
+                                            {% endfor %}
+                                            <fieldset class="row merged-10">
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>First Name</h6>
+                                                    <!--                                                    <input class="uk-input" type="text"placeholder="Enter your first name">-->
+                                                    {{form.firstname(class="uk-input")}}
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>Last Name </h6>
+                                                    <!--                                                    <input class="uk-input" type="text" placeholder="Enter your last name">-->
+                                                    {{form.lastname(class="uk-input")}}
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>Username</h6>
+                                                    <!--                                                    <input class="uk-input" type="text"placeholder="Enter your username" disabled>-->
+                                                    {{form.username(class="uk-input", disabled=True)}}
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>Email Id</h6>
+                                                    <!--                                                    <input class="uk-input" type="text" placeholder="Enter your email Id">-->
+                                                    {{form.email(class="uk-input", disabled=True)}}
+                                                    <!-- <em>Add information about yourself."</em> -->
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>Gender</h6>
+                                                    <!--                                                    <input class="uk-input" type="text" placeholder="Gender" disabled>-->
+                                                    {{form.gender(class="uk-input", disabled=True)}}
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                    <h6>Date-Of-Birth</h6>
+                                                    <!--                                                    <input type="date" name="Date Of Birth" id="" disabled>-->
+                                                    {{form.dob(class="uk-input", disabled=True)}}
+                                                </div><br><br><br>
+                                                <div class="mb-4 col-lg-12">
+                                                    <h6>About</h6>
+                                                    <!--                                                    <textarea class="uk-textarea" rows="4"placeholder="Write about yourself"></textarea>-->
+                                                    {{form.desc(class="uk-textarea", placeholder="Write about yourself")}}
+                                                </div>
+
+                                                <div class="mb-4 col-lg-6">
+                                                {{ form.profile.label }}<br>
+<!--                                                </div>-->
+<!--                                                <div class="mb-4 col-lg-6">-->
+                                                {{ form.profile(class="uk-textarea") }}<br>
+                                                </div>
+                                                <div class="mb-4 col-lg-6">
+                                                {{ form.cover.label }}<br>
+<!--                                                </div>-->
+<!--                                                <div class="mb-4 col-lg-6">-->
+                                                {{ form.cover(class="uk-textarea") }}<br>
+                                                </div>
+                                            <div class="mb-4 col-lg-6">
+                                           <ins></ins>
+                                            </div>
+                                               <div class="mb-4">
+                                                <div class="social-links">
+                                                <h2>Social Links</h2>
+                                                <p>Add your social links</p>
+                                              
+                                                        <!-- <br> -->
+                                                        <span>http://facebook.com/</span>
+<!--                                                        <input type="text" placeholder="Facebook Profile">-->
+                                                        {{ form.facebook(placeholder="Facebook Profile") }}
+                                                        <em>Add your Facebook username (e.g. johndoe).</em>
+                                                    <!-- </div> -->
+                                                <br><br>
+                                                <!-- <div class="mb-4"> -->
+                                                    <!-- <div class="social-links"> -->
+                                                        <span>http://www.instagram.com/</span>
+<!--                                                        <input type="text" placeholder="Instagram Profile">-->
+                                                    {{ form.instagram(placeholder="Instagram Profile") }}
+                                                        <em>Add your Instagram username (e.g. johndoe).</em>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="mb-0 col-lg-12">
+                                                    {{form.submit(class="button primary circle")}}
+
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

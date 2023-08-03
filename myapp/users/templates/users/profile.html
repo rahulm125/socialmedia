@@ -1,0 +1,1162 @@
+{% extends "userlayout.html" %}
+
+{% block content %}
+
+<section>
+	<div class="gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="page-contents" class="row merged20">
+						<div class="col-lg-3">
+							<aside class="sidebar static left">
+								<div class="widget">
+									<span><i class="icofont-globe"></i> Sponsored</span>
+									<ul class="sponsors-ad">
+										<li>
+											<figure><img alt="" src="images/resources/sponsor.jpg"></figure>
+											<div class="sponsor-meta">
+												<h5><a title="" href="#">Example Example</a></h5>
+												<a target="_blank" title="" href="#">www.example.com</a>
+											</div>
+										</li>
+										<li>
+											<figure><img alt="" src="images/resources/sponsor2.jpg"></figure>
+											<div class="sponsor-meta">
+												<h5><a title="" href="#">Example Example</a></h5>
+												<a target="_blank" title="" href="#">www.example.com</a>
+											</div>
+										</li>
+									</ul>
+								</div>
+
+
+								<div class="widget">
+									<h4 class="widget-title">Ask Research Question?</h4>
+									<div class="ask-question">
+										<i class="icofont-question-circle"></i>
+										<h6>Ask questions in Q&A to get help from experts in your field.</h6>
+										<a class="ask-qst" href="{{url_for('users.help')}}" title="">Ask a question</a>
+									</div>
+								</div>
+								<div class="widget">
+									<h4 class="widget-title">Events <!--<a class="see-all" href="#" title="">See All</a>--></h4>
+									<div class="rec-events bg-blue">
+										<i class="icofont-microphone"></i>
+										<h6><a title="" href="{{url_for('users.live')}}">Live stream today</a></h6>
+										<img alt="" src="{{url_for('static', filename='users/images/clock.png') }}">
+									</div>
+								</div>
+								<div class="widget stick-widget">
+									<h4 class="widget-title">User Terms</h4>
+									<div class="grop-rules">
+										<p>
+											Hi! To ensure that this is a great place for everyone to have a wondefull time, we have some rules. Breaking them will result in a ban.
+										</p>
+										<ol>
+											<li><i class="icofont-dotted-right"></i> Be positive! Respect and help other viewers</li>
+											<li><i class="icofont-dotted-right"></i> No insults, aggravations or any other bad languag</li>
+											<li><i class="icofont-dotted-right"></i> No self promotions</li>
+											<li><i class="icofont-dotted-right"></i> Avoid political or religious discussions</li>
+											<li><i class="icofont-dotted-right"></i> No comment spamming</li>
+										</ol>
+									</div>
+								</div>
+
+							</aside>
+						</div>
+						<div class="col-lg-9">
+							<div class="group-feed">
+								<div class="group-avatar">
+									{% if coverpic.cover %}
+										<img src="{{ url_for('static', filename='uploads/images/' +coverpic.cover) }}" alt="">
+									{% else %}
+									<img src="{{ url_for('static', filename='users/images/resources/profile-banner.jpg') }}" alt="">
+									{% endif %}
+										<a href="#" title=""><i class="icofont-check-circled"></i>Activated</a>
+									{% if profilepic.profile %}
+										<figure class="group-dp"><img src="{{ url_for('static', filename='uploads/images/' +profilepic.profile) }}" alt=""></figure>
+									{% else %}
+											<figure class="group-dp"><img src="{{ url_for('static', filename='users/images/resources/frnd-figure2.jpg') }}" alt=""></figure>
+
+									{% endif %}
+									</div>
+								<div class="grp-info about">
+									<h4>{{user_info.firstname}} {{user_info.lastname}} <span>@{{user_info.username}}</span></h4>
+									<ul class="joined-info">
+										<li><span>Joined:</span> {{user_info.registered_on}}</li>
+										<li><span>Friends:</span> {{friends}}</li>
+										<li><span>Following:</span> {{following}}</li>
+										<li><span>Followers:</span> {{followers}}</li>
+										<li><span>Posts:</span> {{posts}}</li>
+									</ul>
+									<ul class="nav nav-tabs about-btn">
+<!--										<li class="nav-item"><a class="active" href="#posts" data-toggle="tab">Posts</a></li>-->
+<!--										<li class="nav-item"><a class="" href="#pictures" data-toggle="tab">Pictures</a></li>-->
+<!--										<li class="nav-item"><a class="" href="#videos" data-toggle="tab">Videos</a></li>-->
+<!--										<li class="nav-item"><a class="" href="#friends" data-toggle="tab">Friends</a></li>-->
+<!--										<li class="nav-item"><a class="" href="#about" data-toggle="tab">About</a></li>-->
+									</ul>
+
+								</div>
+								<div class="main-wraper">
+									<div class="grp-about">
+										<div class="row">
+											<div class="col-lg-8 col-md-6">
+												<h4>About Me!</h4>
+												<p>{{user_info.desc}}</p>
+
+											</div>
+											<div class="col-lg-4 col-md-6">
+												<div class="share-article">
+													<span>Share Profile</span>
+													<a href="https://www.facebook.com/{{user_info.facebook}}" title="" class="facebook"><i class="icofont-facebook"></i></a>
+													<!-- <a href="#" title="" class="pinterest"><i class="icofont-pinterest"></i></a> -->
+													<a href="https://www.instagram.com/{{user_info.instagram}}" title="" class="instagram"><i class="icofont-instagram"></i></a>
+													<!-- <a href="#" title="" class="twitter"><i class="icofont-twitter"></i></a> -->
+<!--													<a href="#" title="" class="google"><i class="icofont-google-plus"></i></a>-->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="tab-content">
+											<div class="tab-pane active fade show " id="posts" >
+												<div class="row merged20">
+													<div class="col-lg-8">
+														<div class="main-wraper">
+															<span class="new-title">Create New Post</span>
+															<div class="new-post">
+																<form method="post">
+																	<i class="icofont-pen-alt-1"></i>
+																	<input type="text" placeholder="Create New Post">
+																</form>
+																<ul class="upload-media">
+																	<li>
+																		<a href="#" title="">
+																			<i><img src="{{ url_for('static', filename='users/images/image.png') }}" alt=""></i>
+																			<span>Photo/Video</span>
+																		</a>
+																	</li>
+
+																</ul>
+															</div>
+														</div>
+														<!-- create new post -->
+
+														<!-- post sell book -->
+														<div class="main-wraper">
+															<div class="wraper-title">
+																<span><i class="icofont-video-alt"></i> Videos Play List</span>
+															</div>
+															<div class="videos-caro">
+																{% for post in videos %}
+																{% if post.filetype == "video" %}
+																<div class="item-video" data-merge="2">
+																	<iframe height="285" src="{{ url_for('static', filename='uploads/videos/'+ post.filename) }}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+																	<div class="posted-user">
+																		<img src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}" alt="">
+																		<span>{{post.name}}</span>
+																	</div>
+																	<div class="vid-info">
+																		<span>{{post.time}}</span>
+																	</div>
+																</div>
+																{% endif %}
+																{% endfor %}
+
+															</div>
+														</div><!-- video playlist carousel -->
+
+
+
+
+
+							{% for post in allposts %}
+							{% if post.filetype == "simple" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+
+											</div>
+											<ins>
+												<a title="verified" href="time-line.html">{{post.name}}</a></ins>
+											<span><i class="icofont-globe"></i> published: {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+											<a href="post-detail.html" class="post-title">{{post.desc}}</a>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">{% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+
+															{% endif %}
+
+															{% endif %}
+
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- share post without image -->
+							{% endif %}
+							{% if post.filetype == "image" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+<!--												-->
+											</div>
+											<ins><a title="" href="time-line.html">{{post.name}}</a> Created Post on</ins>
+											<span><i class="icofont-globe"></i> {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+											<figure>
+												<a data-toggle="modal" data-target="#img-comt" href="{{ url_for('static', filename='users/images/resources/album1.jpg') }}">
+													<img src="{{ url_for('static', filename='uploads/images/'+ post.filename) }}" alt="">
+												</a>
+											</figure>
+<!--											<a href="post-detail.html" class="post-title">Supervision as a Personnel Development Device</a>-->
+											<p>
+<!--												Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero.-->
+												{{ post.desc }}
+											</p>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">{% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+
+															{% endif %}
+
+															{% endif %}
+
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+
+							{% if post.filetype == "video" %}
+							<div class="main-wraper">
+								<div class="user-post">
+									<div class="friend-info">
+										<figure>
+											<em>
+<svg style="vertical-align: middle;"  xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="#7fba00" stroke="#7fba00" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg></em>
+											<img alt="" src="{{ url_for('static', filename='uploads/images/'+ post.profilephoto) }}">
+										</figure>
+										<div class="friend-name">
+											<div class="more">
+
+											</div>
+											<ins><a title="" href="time-line.html">{{post.name}}</a> Shared Video</ins>
+											<span><i class="icofont-globe"></i> published: {{post.time}}</span>
+										</div>
+										<div class="post-meta">
+<!--											<em><a href="https://www.youtube.com/embed/zdow47FQRfQ" title="" target="_blank">https://www.youtube.com/embed/zdow47FQRfQ</a>-->
+<!--											</em>-->
+											<iframe height="285" src="{{ url_for('static', filename='uploads/videos/'+ post.filename) }}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+											<p>
+											{{post.desc}}
+											</p>
+
+											<div class="stat-tools">
+												<div class="box">
+												  <div class="Like">{% if current_user.has_liked_post(post) %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='unlike') }}"><i class="icofont-like"></i> Unlike</a>
+													  {% else %}
+													  <a href="{{ url_for('users.like_action', post_id=post.id, action='like') }}"><i class="icofont-like"></i> Like</a>
+													  {% endif %}
+													  {{ post.likes.count() }} likes
+
+												  </div>
+												</div>
+												<div class="box">
+													<div class="Emojis">
+													  <div class="Emoji Emoji--like">
+														<div class="icon icon--like"></div>
+													  </div>
+													  <div class="Emoji Emoji--love">
+														<div class="icon icon--heart"></div>
+													  </div>
+													  <div class="Emoji Emoji--haha">
+														<div class="icon icon--haha"></div>
+													  </div>
+													  <div class="Emoji Emoji--wow">
+														<div class="icon icon--wow"></div>
+													  </div>
+													  <div class="Emoji Emoji--sad">
+														<div class="icon icon--sad"></div>
+													  </div>
+													  <div class="Emoji Emoji--angry">
+														<div class="icon icon--angry"></div>
+													  </div>
+													</div>
+												  </div>
+												<a title="" href="#" class="comment-to"><i class="icofont-comment"></i> Comment</a>
+
+
+												<div class="new-comment" style="display: none;">
+													<form method="post" action="{{ url_for('users.comments', post_id=post.id, action='comment') }}">
+														{{cform.hidden_tag()}}
+<!--														<input type="text" placeholder="write comment">-->
+
+														{{cform.comment(placeholder="write comment")}}
+														<button type="submit"><i class="icofont-paper-plane"></i></button>
+													</form>
+													<div class="comments-area">
+														<ul>
+															{% if post.comments %}
+                											{% if post.comments.count() > 0 %}
+															{% for comment in post.comments %}
+															<li>
+																<figure><img alt="" src="{{ url_for('static', filename='uploads/images/'+ comment.photo) }}"></figure>
+																<div class="commenter">
+																	<h5><a title="" href="#">{{comment.name}}</a></h5>
+																	<span>{{comment.time}}</span>
+																	<p>
+																		{{comment.comment}}
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+															{% endfor %}
+
+															{% else %}
+
+															<li>
+<!--																<figure><img alt="" src="images/resources/user2.jpg"></figure>-->
+																<div class="commenter">
+<!--																	<h5><a title="" href="#">Ching xang</a></h5>-->
+<!--																	<span>2 hours ago</span>-->
+																	<p>
+																		No Comments Yet...
+																	</p>
+																</div>
+<!--																<a title="Like" href="#"><i class="icofont-heart"></i></a>-->
+<!--																<a title="Reply" href="#" class="reply-coment"><i class="icofont-reply"></i></a>-->
+															</li>
+
+															{% endif %}
+
+															{% endif %}
+
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- share video -->
+							{% endif %}
+
+							{% endfor %}
+
+
+
+
+
+
+
+
+														<!-- gif image post -->
+														<div class="sp sp-bars"></div>
+													</div>
+													<div class="col-lg-4">
+														<aside class="sidebar static left">
+															{% if fsuggestions != None %}
+															<div class="widget stick-widget">
+																<h4 class="widget-title">Follow People </h4>
+																<ul class="invitepage">
+																	{% for sug in fsuggestions %}
+																	<li>
+																		<figure>
+																			{% if profil(sug) %}
+																			<img alt="" height="45px" width="45" src="{{ url_for('static', filename='uploads/images/'+ profil(sug)) }}">
+																			{% else %}
+																			<img alt="" src="{{ url_for('static', filename='users/images/resources/friend-avatar.jpg') }}">
+
+																			{% endif %}
+																			<a href="userprofile/{{ sug.username }}">{{sug.firstname}} {{sug.lastname}}</a>
+																		</figure>
+																		{% if is_follow(sug, follow_lst) %}
+																		<a href="/unfollow/{{sug.id}}/{{user_info.id}}" class="underline" title=""> Unfollow</a>
+																		{% else %}
+																		<a href="/follow/{{sug.id}}/{{user_info.id}}" class="underline" title=""> Follow</a>
+																		{% endif %}
+																	</li>
+																	{% endfor %}
+																</ul>
+															</div>
+															{% endif %}
+
+														</aside>
+													</div>
+												</div>
+											</div>
+<!--											<div class="tab-pane fade" id="pictures" >-->
+<!--												<h5 class="tab-title">Pictures <span>87</span></h5>-->
+<!--												<ul class="pix-filter">-->
+<!--													<li><a class="active" href="#" title="">All Photos</a></li>-->
+<!--													<li><a href="#" title="">Profile Pictures</a></li>-->
+<!--													<li><a href="#" title="">Albums</a></li>-->
+<!--													&lt;!&ndash; <li><a href="#" title="">from Mobile</a></li> &ndash;&gt;-->
+<!--												</ul>-->
+<!--												<div class="row merged-10">-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic1.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic2.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic3.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic4.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic5.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic6.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic7.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic8.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic9.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic10.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic11.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic12.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic13.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic14.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic15.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic5.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic12.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic4.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic6.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="uzr-pictures">-->
+<!--															<a href="#" data-target="#img-comt" data-toggle="modal">-->
+<!--																<img alt="" src="images/resources/user-pic7.jpg">-->
+<!--															</a>-->
+<!--															<ul class="hover-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-12 mt-3">-->
+<!--														<div class="sp sp-bars"></div>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--											</div>-->
+<!--											<div class="tab-pane fade" id="videos">-->
+<!--												<h5 class="tab-title">Videos <span>55</span></h5>-->
+<!--												<ul class="pix-filter">-->
+<!--													<li><a title="" href="#" class="active">All Videos</a></li>-->
+<!--													<li><a title="" href="#">Most views</a></li>-->
+<!--													&lt;!&ndash; <li><a title="" href="#">Newest</a></li>-->
+<!--													<li><a title="" href="#">Mobile videos</a></li> &ndash;&gt;-->
+<!--												</ul>-->
+<!--												<div class="row merged-10">-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video1.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Miami Beach Party</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video2.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Spring Break Party</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video3.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Pool Party 2020</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video4.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>baby girls Entry at beach</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video5.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Spring Party 2021</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video6.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Biggest Part of the Pool Party</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video7.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Party games in the water</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video8.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Water party with GF</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video9.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Super hot party in summer</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video10.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Summer Party in Bikini</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+<!--																<img alt="" src="images/resources/user-video11.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Miami Bikini English</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--														<div class="user-video">-->
+<!--															<figure>-->
+
+<!--																<img alt="" src="images/resources/user-video12.jpg">-->
+<!--																<a href="https://www.youtube.com/embed/vP-l9L3Ku5Y" data-fancybox="" class="play-btn"><i class="icofont-play"></i></a>-->
+<!--															</figure>-->
+<!--															<span>Super Summer 2021</span>-->
+<!--															<ul class="vid-action">-->
+<!--																<li><a href="#" title=""><i class="icofont-like"></i> 3</a></li>-->
+<!--																<li><a href="#" title=""><i class="icofont-chat"></i> 5</a></li>-->
+<!--															</ul>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-12">-->
+<!--														<div class="sp sp-bars"></div>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--											</div>-->
+<!--											<div class="tab-pane fade" id="friends">-->
+<!--												<h5 class="tab-title">Friends <span>102</span></h5>-->
+<!--												<ul class="pix-filter">-->
+<!--													<li><a title="" href="#" class="active">All Friends</a></li>-->
+<!--													&lt;!&ndash; <li><a title="" href="#">Family Friends</a></li>-->
+<!--													<li><a title="" href="#">Close Friends</a></li> &ndash;&gt;-->
+<!--													<li><a title="" href="#">Mutual Friends</a></li>-->
+<!--												</ul>-->
+<!--												<div class="row merged-10 col-xs-6">-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-10.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Amy Watson</a></span>-->
+<!--															<ins>Bz University, Pakistan</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i>Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-11.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Muhammad Khan</a></span>-->
+<!--															<ins>Oxford University, UK</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-12.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Sadia Gill</a></span>-->
+<!--															<ins>WB University, USA</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-4.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Rjapal</a></span>-->
+<!--															<ins>Km University, India</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-1.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Amy watson</a></span>-->
+<!--															<ins>Oxford University, UK</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-2.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Bob Frank</a></span>-->
+<!--															<ins>WB University, Canada</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-5.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Amy Watson</a></span>-->
+<!--															<ins>Bz University, Pakistan</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-7.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Muhammad Khan</a></span>-->
+<!--															<ins>Oxford University, UK</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-10.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Sadia Gill</a></span>-->
+<!--															<ins>WB University, USA</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-2.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Bob Frank</a></span>-->
+<!--															<ins>WB University, Canada</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-3 col-md-4 col-sm-6">-->
+<!--														<div class="friendz">-->
+<!--															<figure><img src="images/resources/speak-11.jpg" alt=""></figure>-->
+<!--															<span><a href="#" title="">Muhammad Khan</a></span>-->
+<!--															<ins>Oxford University, UK</ins>-->
+<!--															<a href="#" title="" data-ripple=""><i class="icofont-star"></i> Unfollow</a>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<div class="col-lg-12">-->
+<!--														<div class="sp sp-bars"></div>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--											</div>-->
+<!--											<div class="tab-pane fade" id="about">-->
+<!--												<div class="row merged20">-->
+<!--													<div class="col-lg-8">-->
+<!--														<div class="main-wraper">-->
+<!--															<h5 class="main-title">Personal</h5>-->
+<!--															<div class="info-block-list">-->
+<!--																<ul>-->
+<!--																	<li>Date of Birth: <span>Dec, 17 1980</span></li>-->
+<!--																	<li>Location: <span>Los Angeles, California</span></li>-->
+<!--																	&lt;!&ndash; <li>Web: <span>www.sample.com</span></li> &ndash;&gt;-->
+<!--																	<li>Email: <span>sample123@yourmail.com</span></li>-->
+<!--																	&lt;!&ndash; <li>Location: <span>Los Angeles, California</span></li> &ndash;&gt;-->
+<!--																	<li>Occupation: <span>Doctor</span></li>-->
+<!--																	<li>Education: <span>University</span></li>-->
+<!--																</ul>-->
+<!--															</div>-->
+<!--														</div>-->
+<!--														&lt;!&ndash; <div class="main-wraper">-->
+<!--															<h5 class="main-title">Interests</h5>-->
+<!--															<div class="info-block-list">-->
+<!--															  <div class="info-block">-->
+<!--																<h6>Favourite TV Shows</h6>-->
+<!--																<p>Breaking Good, RedDevil, People of Interest, The Running Dead, Found,  American Guy, The Last Windbender, Game of Wars.</p>-->
+<!--															  </div>-->
+<!--															  <div class="info-block">-->
+<!--																<h6>Favourite Music Bands / Artists</h6>-->
+<!--																<p>Iron Maid, DC/AC, Megablow, Kung Fighters, System of a Revenge, Rammstown.</p>-->
+<!--															  </div>-->
+<!--															  <div class="info-block">-->
+<!--																<h6>Favourite Movies</h6>-->
+<!--																<p>The Revengers Saga, The Scarred Wizard and the Fire Crown, Crime Squad, Metal Man, The Dark Rider, Watchers, The Impossible Heist.</p>-->
+<!--															  </div>-->
+<!--															  <div class="info-block">-->
+<!--																<h6>Favourite Books</h6>-->
+<!--																<p>The Crime of the Century, Egiptian Mythology 101, The Scarred Wizard, Lord of the Wings, Amongst Gods, The Oracle, A Tale of Air and Water.</p>-->
+<!--															  </div>-->
+<!--															  <div class="info-block">-->
+<!--																<h6>Favourite Games</h6>-->
+<!--																<p>The First of Us, Assassin’s Squad, Dark Assylum, NMAK16, Last Cause 4, Grand Snatch Auto.</p>-->
+<!--															  </div>-->
+<!--															</div>-->
+<!--														</div> &ndash;&gt;-->
+<!--													</div>-->
+<!--													<div class="col-lg-4">-->
+<!--														<aside class="sidebar">-->
+<!--															&lt;!&ndash; <div class="widget">-->
+<!--																<h4 class="widget-title">Complete Your Profile</h4>-->
+<!--																<span>Complete your profile by filling profile info fields, completing quests & unlocking badges</span>-->
+<!--																<div data-progress="tip" class="progress__outer" data-value="0.67">-->
+<!--																	<div class="progress__inner">82%</div>-->
+<!--																</div>-->
+<!--																<ul class="prof-complete">-->
+<!--																	<li><i class="icofont-plus-square"></i> <a href="#" title="">Upload Your Picture</a><em>10%</em></li>-->
+<!--																	<li><i class="icofont-plus-square"></i> <a href="#" title="">Your University?</a><em>20%</em></li>-->
+<!--																	<li><i class="icofont-plus-square"></i> <a href="#" title="">Invite to 10+ members</a><em>20%</em></li>-->
+<!--																</ul>-->
+<!--															</div> &ndash;&gt;-->
+<!--															&lt;!&ndash; complete profile widget &ndash;&gt;-->
+<!--															<div class="widget">-->
+<!--																<h4 class="widget-title">User stats</h4>-->
+<!--																<ul class="user-stat">-->
+<!--																	<li><i class="icofont-lollipop"></i><span>Last Post <em>2 hours ago</em></span></li>-->
+<!--																	<li><i class="icofont-spotify"></i><span>Last comment <em>6 hours ago</em></span></li>-->
+<!--																	<li><i class="icofont-like"></i><span>Most Liked Post<em>540 Likes</em></span></li>-->
+<!--																	<li><i class="icofont-user-alt-4"></i><span>Last Friend Added <em>2 days ago</em></span></li>-->
+<!--																</ul>-->
+<!--															</div>&lt;!&ndash; complete profile widget &ndash;&gt;-->
+<!--														</aside>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--											</div>-->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% for detail in details %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>{{detail.name}} | Login</title>
+    <link rel="icon" href="{{ url_for('static', filename='uploads/images/'+ detail.favicon) }}" type="image/png" sizes="16x16">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/main.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/color.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/css/responsive.css') }}">
+
+</head>
+<body>
+<div class="page-loader" id="page-loader">
+
+  <div class="loader"><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span></div>
+
+</div><!-- page loader -->
+<div class="theme-layout">
+
+	<div class="authtication bluesh high-opacity">
+		<div class="bg-image" style="background-image: url({{ url_for('static', filename='users/images/resources/login-bg3.jpg') }})"></div>
+		<ul class="welcome-caro">
+			<li class="welcome-box">
+				<figure><img src="{{ url_for('static', filename='uploads/images/'+ detail.lonephoto) }}" alt=""></figure>
+				<h4>{{detail.lslideone}}</h4>
+				<p>
+					{{detail.lonedesc}}
+				</p>
+			</li>
+			<li class="welcome-box">
+				<figure><img src="{{ url_for('static', filename='uploads/images/'+ detail.ltwophoto) }}" alt=""></figure>
+				<h4>{{detail.lslidetwo}}</h4>
+				<p>
+					{{detail.ltwodesc}}
+				</p>
+			</li>
+			<li class="welcome-box">
+				<figure><img src="{{ url_for('static', filename='uploads/images/'+ detail.lthreephoto) }}" alt=""></figure>
+				<h4>{{detail.lslidethree}}</h4>
+				<p>
+					{{detail.lthreedesc}}
+				</p>
+			</li>
+
+		</ul>
+	</div>
+	<div class="auth-login">
+		<div class="logo"><img src="{{ url_for('static', filename='uploads/images/'+ detail.logo) }}" alt=""><span>{{detail.name}}</span></div>
+		<div class="mockup left-bottom"><img src="{{ url_for('static', filename='users/images/mockup.png') }}" alt=""></div>
+		<div class="verticle-center">
+			<div class="login-form">
+				<h4><i class="icofont-key-hole"></i> Login</h4>
+
+				<form method="post" class="c-form">
+					{% for mess in get_flashed_messages()  %}
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" class="fade close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{mess}}
+        </div>
+      {% endfor %}
+					{{ form.hidden_tag() }}
+<!--					<input type="text" placeholder="User Name @">-->
+					{{form.username(placeholder="Username")}}
+					{{form.password(placeholder="Password")}}
+<!--					<input type="password" placeholder="xxxxxxxxxx">-->
+<!--					<div class="checkbox">-->
+<!--						<input type="checkbox" id="checkbox" checked>-->
+<!--						<label for="checkbox"><span>Remember Me</span></label>-->
+<!--					</div>-->
+
+					<p class="form__text">Don't have an account?
+                            <label class="form__link"><a href="{{ url_for('users.signup') }}">Sign up!</a></label>
+					<button class="main-btn" type="submit"><i class="icofont-key"></i> Signin</button></p>
+
+				</form>
+			</div>
+		</div>
+		<div class="mockup right"><img src="{{ url_for('static', filename='users/images/star-shape.png') }}" alt=""></div>
+	</div>
+
+</div>
+
+	<script src="{{ url_for('static', filename='users/js/main.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='users/js/script.js') }}"></script>
+
+{% endfor %}
+</body>
+</html>
